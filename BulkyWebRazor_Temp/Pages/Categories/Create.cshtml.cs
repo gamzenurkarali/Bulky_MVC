@@ -9,6 +9,7 @@ namespace BulkyWebRazor_Temp.Pages.Categories
     {
 
         private readonly ApplicationDbContext _context;
+        [BindProperty]
         public Category Category { get; set; }
         public CreateModel(ApplicationDbContext context)
         {
@@ -19,6 +20,14 @@ namespace BulkyWebRazor_Temp.Pages.Categories
         public void OnGet()
         {
              
+        }
+
+        public IActionResult OnPost()
+        {
+            _context.Categories.Add(Category);
+            _context.SaveChanges();
+            TempData["success"] = "Category created succesfully";
+            return RedirectToPage("Index");
         }
     }
 }
